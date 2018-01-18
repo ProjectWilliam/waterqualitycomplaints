@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"io/ioutil"
 	"log"
+	"os"
 )
 
 func main() {
@@ -13,7 +14,7 @@ func main() {
 	e.File("/", "public/index.html")
 	e.GET("/data", getJSON)
 	e.Static("/", "public")
-	e.Logger.Fatal(e.Start(":8000"))
+	e.Logger.Fatal(e.Start(os.Getenv("PORT")))
 }
 func getJSON(c echo.Context) error {
 	url := "https://data.cityofnewyork.us/resource/qfe3-6dkn.json"
