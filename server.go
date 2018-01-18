@@ -14,7 +14,7 @@ func main() {
 	e.File("/", "public/index.html")
 	e.GET("/data", getJSON)
 	e.Static("/", "public")
-	e.Logger.Fatal(e.Start(os.Getenv("PORT")))
+	e.Logger.Fatal(e.Start(":8000"))
 }
 func getJSON(c echo.Context) error {
 	url := "https://data.cityofnewyork.us/resource/qfe3-6dkn.json"
