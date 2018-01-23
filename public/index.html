@@ -34,6 +34,7 @@
 <body>
     <div id="map"></div>
     <div id="sidebar">
+        <button type="button" onclick="resetFunction()">Reset</button>
         <div class="container">
             <div class="row">
                 <div id="date-chart"></div>
@@ -49,6 +50,7 @@
                 </div>
             </div>
             <div class="row">
+                <br></br>
                 <div class="col-sm">
                     <div id="status-chart"></div>
                 </div>
@@ -76,8 +78,10 @@
                 }
             }]
         });
+
         dccharts.addTo(map);
 
+        function getData(){
         $.ajax({
             type: 'GET',
             url: '/data',
@@ -86,7 +90,16 @@
                 makeGraphs(data);
 
             }
-        });
+        })
+        };
+
+        getData();
+
+        //resets after using filter
+        function resetFunction() {
+            getData();
+
+        }
 
         function makeGraphs(data) {
             var records = data;
@@ -167,11 +180,13 @@
                     maxZoom: 19
                 }).addTo(map);
 
+
                 //HeatMap
                 var geoData = [];
                 _.each(alldim.top(Infinity), function (d) {
                     geoData.push([parseFloat(d["latitude"]),parseFloat(d["longitude"]), 1]);
                 });
+
                 var heat = L.heatLayer(geoData,{
                     radius: 10,
                     blur: 20,
@@ -194,7 +209,9 @@
 
             dc.renderAll();
 
+
         }
+
     </script>
 </body>
 </html>

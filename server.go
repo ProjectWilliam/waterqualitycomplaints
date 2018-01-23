@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"io/ioutil"
 	"log"
-	"os"
 )
 
 func main() {
